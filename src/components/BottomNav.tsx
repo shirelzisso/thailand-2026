@@ -24,19 +24,21 @@ interface BottomNavProps {
 
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   return (
-    <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-40 pb-safe">
-      {navItems.map(item => (
-        <button
-          key={item.id}
-          onClick={() => onTabChange(item.id)}
-          className={`flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-xs transition-colors ${
-            activeTab === item.id ? 'text-primary font-bold' : 'text-gray-400'
-          }`}
-        >
-          <span className="text-xl leading-none">{item.emoji}</span>
-          <span>{item.labelHe}</span>
-        </button>
-      ))}
+    <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 z-40 pb-safe">
+      <div className="flex overflow-x-auto scrollbar-hide h-16 items-center">
+        {navItems.map(item => (
+          <button
+            key={item.id}
+            onClick={() => onTabChange(item.id)}
+            className={`flex flex-col items-center justify-center flex-shrink-0 w-16 h-full gap-0.5 text-xs transition-colors ${
+              activeTab === item.id ? 'text-primary font-bold' : 'text-gray-400'
+            }`}
+          >
+            <span className="text-xl leading-none">{item.emoji}</span>
+            <span className="whitespace-nowrap">{item.labelHe}</span>
+          </button>
+        ))}
+      </div>
     </nav>
   )
 }

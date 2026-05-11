@@ -23,6 +23,13 @@ export default {
         '.pb-safe': {
           paddingBottom: 'env(safe-area-inset-bottom)',
         },
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.scrollbar-hide::-webkit-scrollbar': {
+          display: 'none',
+        },
       })
     },
   ],
