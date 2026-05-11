@@ -34,12 +34,12 @@ export function Quiz({ store }: QuizProps) {
 
   const question = filtered[questionIndex]
 
-  // Per-question shuffled options — re-derive when question changes
+  // Shuffle options once per question — keyed on question id to avoid stale cache
   const currentOptions = useMemo(
     () => question
       ? shuffle(question.options.map((opt, i) => ({ text: opt, isCorrect: i === 0 })))
       : [],
-    [questionIndex, shuffledQuestions] // eslint-disable-line react-hooks/exhaustive-deps
+    [question?.id] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   const handleAnswer = useCallback((isCorrect: boolean) => {
@@ -86,7 +86,13 @@ export function Quiz({ store }: QuizProps) {
     )
   }
 
-  if (!question) return null
+  if (!question) return (
+    <div className="p-4 text-center mt-20 text-gray-400">
+      <div className="text-5xl mb-4">🎯</div>
+      <p className="text-lg font-bold text-navy">אין שאלות זמינות</p>
+      <p className="text-sm mt-2">נסה להחליף ילד או להפעיל מצב טיסה</p>
+    </div>
+  )
 
   return (
     <div className="p-4 space-y-4">
