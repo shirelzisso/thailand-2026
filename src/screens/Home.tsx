@@ -76,11 +76,10 @@ export function Home({ store, onNavigate }: HomeProps) {
       <div>
         <h2 className="text-lg font-bold text-navy mb-3">המסע שלנו</h2>
         <div className="space-y-3">
-          {destinations.map((dest, i) => {
+          {destinations.map((dest) => {
             const unlocked = today >= dest.startDate || daysLeft === 0
             return (
               <div key={dest.id} className="flex items-center gap-3">
-                {i > 0 && <div className="absolute" />}
                 <button
                   onClick={() => unlocked && onNavigate('trip')}
                   className={`flex-1 rounded-2xl p-4 flex items-center gap-3 transition-all border-2 ${

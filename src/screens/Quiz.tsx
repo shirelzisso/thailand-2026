@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { quizQuestions } from '../data/quiz'
 import { useAppStore } from '../store/useAppStore'
 import { StarBurst } from '../components/StarBurst'
@@ -35,9 +35,12 @@ export function Quiz({ store }: QuizProps) {
   const question = filtered[questionIndex]
 
   // Per-question shuffled options — re-derive when question changes
-  const currentOptions = question
-    ? shuffle(question.options.map((opt, i) => ({ text: opt, isCorrect: i === 0 })))
-    : []
+  const currentOptions = useMemo(
+    () => question
+      ? shuffle(question.options.map((opt, i) => ({ text: opt, isCorrect: i === 0 })))
+      : [],
+    [questionIndex, shuffledQuestions] // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   const handleAnswer = useCallback((isCorrect: boolean) => {
     setSelected(isCorrect ? 'correct' : 'wrong')
