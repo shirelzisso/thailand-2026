@@ -23,19 +23,19 @@ export function Quiz({ store }: QuizProps) {
   const [starBurst, setStarBurst] = useState(false)
   const [sessionScore, setSessionScore] = useState(0)
   const [done, setDone] = useState(false)
-  const [questions] = useState(() =>
-    flightMode
-      ? shuffle(quizQuestions)
-      : shuffle(quizQuestions.filter(q => q.forChildren.includes(activeChild)))
+  // Shuffle once per session — stored so order doesn't change on re-render
+  const [shuffledQuestions] = useState(() =>
+    shuffle(quizQuestions)
   )
 
   const filtered = flightMode
-    ? shuffle(quizQuestions)
-    : questions
+    ? shuffledQuestions
+    : shuffledQuestions.filter(q => q.forChildren.includes(activeChild))
 
   const question = filtered[questionIndex]
 
-  const shuffledOptions = question
+  // Per-question shuffled options — re-derive when question changes
+  const currentOptions = question
     ? shuffle(question.options.map((opt, i) => ({ text: opt, isCorrect: i === 0 })))
     : []
 
@@ -111,7 +111,7 @@ export function Quiz({ store }: QuizProps) {
       </Card>
 
       <div className="space-y-3">
-        {shuffledOptions.map((option, i) => {
+        {currentOptions.map((option, i) => {
           let style = 'border-2 border-gray-200 bg-white'
           if (showFeedback) {
             if (option.isCorrect) style = 'border-2 border-jungle bg-jungle/20'
