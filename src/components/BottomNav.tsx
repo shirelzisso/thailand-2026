@@ -1,4 +1,4 @@
-type Tab = 'home' | 'trip' | 'thai' | 'facts' | 'food' | 'packing' | 'quiz'
+type Tab = 'home' | 'trip' | 'thai' | 'facts' | 'food' | 'packing' | 'quiz' | 'games'
 
 interface NavItem {
   id: Tab
@@ -14,6 +14,7 @@ const navItems: NavItem[] = [
   { id: 'food', emoji: '🍜', labelHe: 'אוכל' },
   { id: 'packing', emoji: '🎒', labelHe: 'ארזנו' },
   { id: 'quiz', emoji: '🎯', labelHe: 'חידון' },
+  { id: 'games', emoji: '🃏', labelHe: 'משחקים' },
 ]
 
 interface BottomNavProps {

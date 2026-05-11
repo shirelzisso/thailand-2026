@@ -9,6 +9,7 @@ import { Facts } from './screens/Facts'
 import { FoodGuide } from './screens/FoodGuide'
 import { PackingList } from './screens/PackingList'
 import { Quiz } from './screens/Quiz'
+import { Games } from './screens/Games'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('home')
@@ -22,6 +23,7 @@ export default function App() {
     food: <FoodGuide />,
     packing: <PackingList store={store} />,
     quiz: <Quiz store={store} />,
+    games: <Games store={store} />,
   }[activeTab]
 
   return (

@@ -109,6 +109,22 @@ export function useAppStore() {
       }
     })
 
+  const recordMemoryBestTime = (child: ChildId, key: string, seconds: number) =>
+    update(s => {
+      const prev = s.children[child].memoryBestTimes
+      if (prev[key] !== undefined && prev[key] <= seconds) return s
+      return {
+        ...s,
+        children: {
+          ...s.children,
+          [child]: {
+            ...s.children[child],
+            memoryBestTimes: { ...prev, [key]: seconds },
+          },
+        },
+      }
+    })
+
   const resetAll = () => update(() => defaultAppState())
 
   return {
@@ -120,6 +136,7 @@ export function useAppStore() {
     toggleMyPacking,
     toggleFamilyPacking,
     recordQuizAnswer,
+    recordMemoryBestTime,
     resetAll,
   }
 }

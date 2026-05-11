@@ -8,6 +8,7 @@ export interface ChildState {
   quizCorrect: number
   quizAnswered: number
   quizBestStreak: number
+  memoryBestTimes: Record<string, number> // key: "easy-timed" | "medium-timed" | "hard-timed", value: seconds
 }
 
 export interface AppState {
@@ -24,6 +25,7 @@ export const defaultChildState = (): ChildState => ({
   quizCorrect: 0,
   quizAnswered: 0,
   quizBestStreak: 0,
+  memoryBestTimes: {},
 })
 
 export const defaultAppState = (): AppState => ({
