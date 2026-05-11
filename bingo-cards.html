@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>בינגו תאילנד 2026 — כרטיסים להדפסה</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: white; }
+  .card {
+    width: 180mm;
+    margin: 10mm auto;
+    page-break-after: always;
+    border: 3px solid #000;
+    border-radius: 4mm;
+    padding: 5mm;
+  }
+  .card:last-child { page-break-after: avoid; }
+  .card-header {
+    text-align: center;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 4mm;
+    border-bottom: 2px solid #000;
+    padding-bottom: 3mm;
+  }
+  .card-number {
+    font-size: 11pt;
+    color: #555;
+    margin-bottom: 2mm;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2mm;
+  }
+  .square {
+    border: 1.5px solid #333;
+    border-radius: 2mm;
+    padding: 2mm 1mm;
+    text-align: center;
+    min-height: 24mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1mm;
+  }
+  .square .emoji { font-size: 20pt; line-height: 1; }
+  .square .label { font-size: 7pt; font-weight: bold; line-height: 1.2; }
+  .card-footer {
+    text-align: center;
+    margin-top: 3mm;
+    font-size: 9pt;
+    color: #777;
+    border-top: 1px solid #ccc;
+    padding-top: 2mm;
+  }
+  @media print {
+    body { background: white; }
+    .no-print { display: none; }
+  }
+  .controls {
+    text-align: center;
+    padding: 20px;
+    background: #f0f0f0;
+  }
+  .controls button {
+    font-size: 16pt;
+    padding: 10px 30px;
+    cursor: pointer;
+    background: #00B4D8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls no-print">
+  <p style="margin-bottom:10px;font-size:14pt;font-weight:bold">בינגו תאילנד 2026 — 12 כרטיסים ייחודיים</p>
+  <button onclick="window.print()">🖨️ הדפסה</button>
+  <button onclick="regenerate()" style="background:#FF6B6B;margin-right:10px">🔀 ערבב מחדש</button>
+</div>
+
+<div id="cards"></div>
+
+<script>
+const squares = [
+  { emoji: '🛺', label: 'ראית תוק-טוק' },
+  { emoji: '🐘', label: 'ראית פיל' },
+  { emoji: '🥭', label: 'אכלת מנגו עם אורז דביק' },
+  { emoji: '🙏', label: 'שמעת סאוואדי' },
+  { emoji: '⛩️', label: 'ראית מקדש' },
+  { emoji: '🐒', label: 'ראית קוף' },
+  { emoji: '🥥', label: 'אכלת קוקוס טרי' },
+  { emoji: '🐠', label: 'ראית דגים צבעוניים' },
+  { emoji: '🚌', label: 'עלית על אוטובוס' },
+  { emoji: '🦎', label: 'ראית גקו על קיר' },
+  { emoji: '🌅', label: 'ראית שמש שוקעת' },
+  { emoji: '🏊', label: 'שחית בים' },
+  { emoji: '🛍️', label: 'ביקרת בשוק' },
+  { emoji: '🌊', label: 'ראית נהר' },
+  { emoji: '🍜', label: 'ניסית אוכל חדש' },
+  { emoji: '🎵', label: 'שמעת מוזיקה תאילנדית' },
+  { emoji: '🛕', label: 'ראית פסל בודהה' },
+  { emoji: '🌴', label: 'ראית עץ דקל' },
+  { emoji: '💰', label: 'קנית משהו בשוק' },
+  { emoji: '⭐', label: 'ראית כוכבים בלילה' },
+  { emoji: '🐊', label: 'ראית תנין' },
+  { emoji: '🏖️', label: 'שחית בבריכה' },
+  { emoji: '🍳', label: 'אכלת אורז עם ביצה מטוגנת' },
+  { emoji: '🌸', label: 'ראית פרח יפה' },
+  { emoji: '😂', label: 'צחקת עד שכאב הבטן' },
+];
+
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function generateCard(num) {
+  const order = shuffle(squares);
+  const rows = [];
+  for (let r = 0; r < 5; r++) {
+    let cells = '';
+    for (let c = 0; c < 5; c++) {
+      const sq = order[r * 5 + c];
+      cells += `<div class="square"><div class="emoji">${sq.emoji}</div><div class="label">${sq.label}</div></div>`;
+    }
+    rows.push(cells);
+  }
+  return `
+    <div class="card">
+      <div class="card-header">🌴 בינגו תאילנד 2026 🌴</div>
+      <div class="card-number">כרטיס מספר ${num}</div>
+      <div class="grid">${rows.join('')}</div>
+      <div class="card-footer">תאילנד 2026 — המשפחה שלנו ✈️</div>
+    </div>
+  `;
+}
+
+function regenerate() {
+  const container = document.getElementById('cards');
+  container.innerHTML = Array.from({ length: 12 }, (_, i) => generateCard(i + 1)).join('');
+}
+
+regenerate();
+</script>
+</body>
+</html>
