@@ -5,6 +5,9 @@ export interface ChildState {
   masteredPhrases: string[]   // phrase ids
   cantWaitFor: string[]        // activity ids (max 3)
   myPacking: Record<string, boolean>
+  quizCorrect: number
+  quizAnswered: number
+  quizBestStreak: number
 }
 
 export interface AppState {
@@ -18,6 +21,9 @@ export const defaultChildState = (): ChildState => ({
   masteredPhrases: [],
   cantWaitFor: [],
   myPacking: {},
+  quizCorrect: 0,
+  quizAnswered: 0,
+  quizBestStreak: 0,
 })
 
 export const defaultAppState = (): AppState => ({

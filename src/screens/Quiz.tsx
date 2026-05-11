@@ -13,7 +13,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function Quiz({ store }: QuizProps) {
-  const { state, addStar } = store
+  const { state, addStar, recordQuizAnswer } = store
   const activeChild = state.activeChild
 
   const [flightMode, setFlightMode] = useState(false)
@@ -56,6 +56,7 @@ export function Quiz({ store }: QuizProps) {
       setStreak(s => {
         const next = s + 1
         setBestStreak(b => Math.max(b, next))
+        recordQuizAnswer(activeChild, true, next)
         if (next >= 2) {
           setStreakPop(true)
           setTimeout(() => setStreakPop(false), 600)
@@ -65,8 +66,9 @@ export function Quiz({ store }: QuizProps) {
     } else {
       setStreak(0)
       setShakeKey(k => k + 1)
+      recordQuizAnswer(activeChild, false, 0)
     }
-  }, [activeChild, addStar])
+  }, [activeChild, addStar, recordQuizAnswer])
 
   const handleNext = () => {
     if (questionIndex + 1 >= filtered.length) {

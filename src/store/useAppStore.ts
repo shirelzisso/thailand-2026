@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import type { AppState, ChildId } from '../types'
 import { defaultAppState } from '../types'
 
+
 const STORAGE_KEY = 'thailand-app'
 
 function load(): AppState {
@@ -91,6 +92,25 @@ export function useAppStore() {
   const toggleFamilyPacking = (itemId: string) =>
     update(s => ({ ...s, familyPacking: { ...s.familyPacking, [itemId]: !s.familyPacking[itemId] } }))
 
+  const recordQuizAnswer = (child: ChildId, correct: boolean, currentStreak: number) =>
+    update(s => {
+      const prev = s.children[child]
+      return {
+        ...s,
+        children: {
+          ...s.children,
+          [child]: {
+            ...prev,
+            quizAnswered: prev.quizAnswered + 1,
+            quizCorrect: prev.quizCorrect + (correct ? 1 : 0),
+            quizBestStreak: Math.max(prev.quizBestStreak, currentStreak),
+          },
+        },
+      }
+    })
+
+  const resetAll = () => update(() => defaultAppState())
+
   return {
     state,
     setActiveChild,
@@ -99,5 +119,7 @@ export function useAppStore() {
     toggleCantWaitFor,
     toggleMyPacking,
     toggleFamilyPacking,
+    recordQuizAnswer,
+    resetAll,
   }
 }

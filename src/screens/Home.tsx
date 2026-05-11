@@ -3,6 +3,7 @@ import { useAppStore } from '../store/useAppStore'
 import { destinations } from '../data/itinerary'
 import type { ChildId } from '../types'
 import type { Tab } from '../components/BottomNav'
+import { Card } from '../components/Card'
 
 const TRIP_START = new Date('2026-05-20T00:00:00')
 
@@ -18,8 +19,9 @@ interface HomeProps {
 }
 
 export function Home({ store, onNavigate }: HomeProps) {
-  const { state, setActiveChild } = store
+  const { state, setActiveChild, resetAll } = store
   const [daysLeft, setDaysLeft] = useState(0)
+  const [confirmReset, setConfirmReset] = useState(false)
 
   useEffect(() => {
     function calc() {
@@ -64,13 +66,43 @@ export function Home({ store, onNavigate }: HomeProps) {
                 <div className="font-bold text-sm mt-1">{child.nameHe}</div>
                 <div className="text-xs text-highlight font-bold">{'⭐'.repeat(Math.min(childState.stars, 5))}</div>
                 {childState.stars > 0 && (
-                  <div className="text-xs text-gray-500">{childState.stars} כוכבים</div>
+                  <div className="text-xs text-gray-500">{childState.stars} ⭐</div>
                 )}
               </button>
             )
           })}
         </div>
       </div>
+
+      {/* Quiz stats for active child */}
+      {(() => {
+        const cs = state.children[state.activeChild]
+        const child = children.find(c => c.id === state.activeChild)!
+        const pct = cs.quizAnswered > 0 ? Math.round((cs.quizCorrect / cs.quizAnswered) * 100) : null
+        if (cs.quizAnswered === 0) return null
+        return (
+          <Card className="bg-highlight/10 border border-highlight">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xl">{child.emoji}</span>
+              <span className="font-bold text-navy text-sm">סטטיסטיקת חידון — {child.nameHe}</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div>
+                <div className="text-2xl font-black text-primary">{cs.quizCorrect}</div>
+                <div className="text-xs text-gray-500">תשובות נכונות</div>
+              </div>
+              <div>
+                <div className="text-2xl font-black text-navy">{pct}%</div>
+                <div className="text-xs text-gray-500">אחוז הצלחה</div>
+              </div>
+              <div>
+                <div className="text-2xl font-black text-accent">🔥{cs.quizBestStreak}</div>
+                <div className="text-xs text-gray-500">רצף שיא</div>
+              </div>
+            </div>
+          </Card>
+        )
+      })()}
 
       {/* Destinations journey */}
       <div>
@@ -99,6 +131,35 @@ export function Home({ store, onNavigate }: HomeProps) {
             )
           })}
         </div>
+      </div>
+      {/* Reset */}
+      <div className="text-center pt-2 pb-6">
+        {confirmReset ? (
+          <div className="space-y-2">
+            <p className="text-sm text-gray-500 font-medium">בטוח? כל הכוכבים והנקודות יימחקו!</p>
+            <div className="flex gap-2 justify-center">
+              <button
+                onClick={() => { resetAll(); setConfirmReset(false) }}
+                className="bg-accent text-white font-bold px-5 py-2 rounded-full text-sm"
+              >
+                כן, מחק הכל
+              </button>
+              <button
+                onClick={() => setConfirmReset(false)}
+                className="bg-gray-100 text-gray-600 font-bold px-5 py-2 rounded-full text-sm"
+              >
+                ביטול
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => setConfirmReset(true)}
+            className="text-xs text-gray-400 underline"
+          >
+            איפוס כל הנתונים
+          </button>
+        )}
       </div>
     </div>
   )
