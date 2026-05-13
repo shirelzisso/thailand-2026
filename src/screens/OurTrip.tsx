@@ -43,10 +43,10 @@ export function OurTrip() {
 
   // Approximate positions on a 300×420 SVG canvas representing Thailand
   const stops = [
-    { id: 'bangkok',       x: 118, y: 148, label: 'בנגקוק',       emoji: '🏙️' },
-    { id: 'kanchanaburi',  x:  62, y: 128, label: 'קנצ\'נאבורי',  emoji: '🌿' },
-    { id: 'pattaya',       x: 140, y: 188, label: 'פאטאיה',        emoji: '🌊' },
-    { id: 'kohsamui',      x: 188, y: 310, label: 'קו סאמוי',      emoji: '🌴' },
+    { id: 'bangkok',       x: 118, y: 148, label: 'בנגקוק',       emoji: '🏙️', order: 1 },
+    { id: 'kanchanaburi',  x:  62, y: 128, label: 'קנצ\'נאבורי',  emoji: '🌿', order: 2 },
+    { id: 'pattaya',       x: 140, y: 188, label: 'פאטאיה',        emoji: '🌊', order: 3 },
+    { id: 'kohsamui',      x: 188, y: 310, label: 'קו סאמוי',      emoji: '🌴', order: 4 },
   ]
 
   // Dotted path order: Bangkok → Kanchanaburi → Bangkok → Pattaya → Koh Samui
@@ -155,6 +155,18 @@ export function OurTrip() {
                 >
                   {stop.label}
                 </text>
+                {/* Order badge */}
+                <circle cx={stop.x + 14} cy={stop.y - 14} r="9" fill="#FF6B6B" />
+                <text
+                  x={stop.x + 14}
+                  y={stop.y - 10}
+                  textAnchor="middle"
+                  fontSize="10"
+                  fontWeight="bold"
+                  fill="white"
+                >
+                  {stop.order}
+                </text>
               </g>
             )
           })}
@@ -169,17 +181,99 @@ export function OurTrip() {
 
       {/* Legend / summary cards below the map */}
       <div className="grid grid-cols-2 gap-2">
-        {destinations.map(dest => (
+        {destinations.map((dest, i) => (
           <button
             key={dest.id}
             onClick={() => setSelected(dest)}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-3 text-right active:scale-95 transition-transform shadow-sm"
+            className="bg-white rounded-2xl border-2 border-gray-100 p-3 text-right active:scale-95 transition-transform shadow-sm relative"
           >
+            <span className="absolute top-2 left-2 bg-accent text-white text-xs font-black w-5 h-5 rounded-full flex items-center justify-center">{i + 1}</span>
             <div className="text-2xl">{dest.emoji}</div>
             <div className="font-bold text-sm text-navy mt-1">{dest.nameHe}</div>
             <div className="text-xs text-gray-400">{dest.days.length} ימים</div>
           </button>
         ))}
+      </div>
+
+      {/* Flights */}
+      <div>
+        <h2 className="text-lg font-black text-navy mb-3">✈️ הטיסות שלנו</h2>
+
+        {/* Outbound */}
+        <div className="bg-white rounded-2xl border-2 border-gray-100 p-4 space-y-3 mb-3 shadow-sm">
+          <div className="text-sm font-black text-primary">🛫 יציאה — 19 במאי 2026</div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="text-right flex-1">
+                <div className="font-black text-navy text-lg">15:50</div>
+                <div className="text-xs text-gray-500">תל אביב (TLV)</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs text-gray-400">3:15 ↗</div>
+                <div className="text-xs font-bold text-gray-500">FZ1082</div>
+              </div>
+              <div className="text-left flex-1">
+                <div className="font-black text-navy text-lg">20:05</div>
+                <div className="text-xs text-gray-500">דובאי (DXB)</div>
+              </div>
+            </div>
+            <div className="text-center text-xs text-accent font-bold bg-accent/10 rounded-xl py-1">
+              🛑 עצירה בדובאי — 2:25 שעות
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="text-right flex-1">
+                <div className="font-black text-navy text-lg">22:30</div>
+                <div className="text-xs text-gray-500">דובאי (DXB)</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs text-gray-400">6:05 ↗</div>
+                <div className="text-xs font-bold text-gray-500">EK0374</div>
+              </div>
+              <div className="text-left flex-1">
+                <div className="font-black text-navy text-lg">07:35 +1</div>
+                <div className="text-xs text-gray-500">בנגקוק (BKK)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Return */}
+        <div className="bg-white rounded-2xl border-2 border-gray-100 p-4 space-y-3 shadow-sm">
+          <div className="text-sm font-black text-jungle">🛬 חזרה — 12 ביוני 2026</div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="text-right flex-1">
+                <div className="font-black text-navy text-lg">01:35</div>
+                <div className="text-xs text-gray-500">בנגקוק (BKK)</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs text-gray-400">6:05 ↗</div>
+                <div className="text-xs font-bold text-gray-500">EK0385</div>
+              </div>
+              <div className="text-left flex-1">
+                <div className="font-black text-navy text-lg">04:40</div>
+                <div className="text-xs text-gray-500">דובאי (DXB)</div>
+              </div>
+            </div>
+            <div className="text-center text-xs text-accent font-bold bg-accent/10 rounded-xl py-1">
+              🛑 עצירה בדובאי — 2:30 שעות
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="text-right flex-1">
+                <div className="font-black text-navy text-lg">07:10</div>
+                <div className="text-xs text-gray-500">דובאי (DXB)</div>
+              </div>
+              <div className="text-center flex-1">
+                <div className="text-xs text-gray-400">3:30 ↗</div>
+                <div className="text-xs font-bold text-gray-500">FZ1549</div>
+              </div>
+              <div className="text-left flex-1">
+                <div className="font-black text-navy text-lg">09:40</div>
+                <div className="text-xs text-gray-500">תל אביב (TLV)</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

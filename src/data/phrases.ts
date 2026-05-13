@@ -12,6 +12,13 @@ export const phrases: Phrase[] = [
   // ברכות
   { id: 'sawadee-m', categoryHe: 'ברכות', meaningHe: 'שלום (גבר מדבר)', thaiScript: 'สวัสดีครับ', phoneticHe: 'סאוואדי קאפ' },
   { id: 'sawadee-f', categoryHe: 'ברכות', meaningHe: 'שלום (בת מדברת)', thaiScript: 'สวัสดีค่ะ', phoneticHe: 'סאוואדי קא' },
+  { id: 'goodmorning-m', categoryHe: 'ברכות', meaningHe: 'בוקר טוב (גבר)', thaiScript: 'อรุณสวัสดิ์ครับ', phoneticHe: 'אָ-רוּן סאוואד קאפ' },
+  { id: 'goodmorning-f', categoryHe: 'ברכות', meaningHe: 'בוקר טוב (בת)', thaiScript: 'อรุณสวัสดิ์ค่ะ', phoneticHe: 'אָ-רוּן סאוואד קא' },
+  { id: 'goodevening-m', categoryHe: 'ברכות', meaningHe: 'ערב טוב (גבר)', thaiScript: 'สวัสดีตอนเย็นครับ', phoneticHe: 'סאוואדי טון יֶן קאפ' },
+  { id: 'goodevening-f', categoryHe: 'ברכות', meaningHe: 'ערב טוב (בת)', thaiScript: 'สวัสดีตอนเย็นค่ะ', phoneticHe: 'סאוואדי טון יֶן קא' },
+  { id: 'myname-m', categoryHe: 'ברכות', meaningHe: 'שמי הוא... (גבר)', thaiScript: 'ผมชื่อ...', phoneticHe: 'פֹם צ\'וּ...' },
+  { id: 'myname-f', categoryHe: 'ברכות', meaningHe: 'שמי הוא... (בת)', thaiScript: 'ฉันชื่อ...', phoneticHe: 'צ\'אן צ\'וּ...' },
+  { id: 'howold', categoryHe: 'ברכות', meaningHe: 'בן/בת כמה אתה/את?', thaiScript: 'อายุเท่าไหร่', phoneticHe: 'אָ-יוּ טאו ריי' },
   { id: 'kopkhun-m', categoryHe: 'ברכות', meaningHe: 'תודה (גבר)', thaiScript: 'ขอบคุณครับ', phoneticHe: 'קופ קון קאפ' },
   { id: 'kopkhun-f', categoryHe: 'ברכות', meaningHe: 'תודה (בת)', thaiScript: 'ขอบคุณค่ะ', phoneticHe: 'קופ קון קא' },
   { id: 'chai', categoryHe: 'ברכות', meaningHe: 'כן', thaiScript: 'ใช่', phoneticHe: 'צ\'אי' },
@@ -20,6 +27,9 @@ export const phrases: Phrase[] = [
   { id: 'khotot', categoryHe: 'מילים נחמדות', meaningHe: 'סליחה', thaiScript: 'ขอโทษ', phoneticHe: 'כאו טוט' },
   { id: 'aroy', categoryHe: 'מילים נחמדות', meaningHe: 'טעים!', thaiScript: 'อร่อย', phoneticHe: 'אָ-רוֹי' },
   { id: 'suaymak', categoryHe: 'מילים נחמדות', meaningHe: 'יפה מאוד!', thaiScript: 'สวยมาก', phoneticHe: 'סואי מאק' },
+  { id: 'sabaidee', categoryHe: 'מילים נחמדות', meaningHe: 'הכל בסדר / נחמד', thaiScript: 'สบายดี', phoneticHe: 'סָ-באי דִי' },
+  { id: 'pen-rai', categoryHe: 'מילים נחמדות', meaningHe: 'לא נורא / בסדר גמור', thaiScript: 'ไม่เป็นไร', phoneticHe: 'מאי פן ריי' },
+  { id: 'chohk-dee', categoryHe: 'מילים נחמדות', meaningHe: 'בהצלחה!', thaiScript: 'โชคดี', phoneticHe: 'צ\'וֹק דִי' },
   // אוכל ושוק
   { id: 'taorai', categoryHe: 'אוכל ושוק', meaningHe: 'כמה זה עולה?', thaiScript: 'เท่าไหร่', phoneticHe: 'טאו ריי' },
   { id: 'anni', categoryHe: 'אוכל ושוק', meaningHe: 'זה, הדבר הזה', thaiScript: 'อันนี้', phoneticHe: 'אן-ניי' },
