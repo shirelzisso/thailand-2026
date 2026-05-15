@@ -15,6 +15,7 @@ export interface AppState {
   activeChild: ChildId
   children: Record<ChildId, ChildState>
   familyPacking: Record<string, boolean>
+  personPacking: Record<string, Record<string, boolean>>  // keyed by PackingPersonId
 }
 
 export const defaultChildState = (): ChildState => ({
@@ -36,4 +37,5 @@ export const defaultAppState = (): AppState => ({
     ellie: defaultChildState(),
   },
   familyPacking: {},
+  personPacking: {},
 })

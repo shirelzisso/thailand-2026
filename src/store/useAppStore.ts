@@ -19,6 +19,7 @@ function load(): AppState {
         ellie: { ...defaults.children.ellie, ...parsed.children?.ellie },
       },
       familyPacking: parsed.familyPacking ?? {},
+      personPacking: parsed.personPacking ?? {},
     }
   } catch {
     return defaultAppState()
@@ -92,6 +93,12 @@ export function useAppStore() {
   const toggleFamilyPacking = (itemId: string) =>
     update(s => ({ ...s, familyPacking: { ...s.familyPacking, [itemId]: !s.familyPacking[itemId] } }))
 
+  const togglePersonPacking = (personId: string, itemId: string) =>
+    update(s => {
+      const person = s.personPacking[personId] ?? {}
+      return { ...s, personPacking: { ...s.personPacking, [personId]: { ...person, [itemId]: !person[itemId] } } }
+    })
+
   const recordQuizAnswer = (child: ChildId, correct: boolean, currentStreak: number) =>
     update(s => {
       const prev = s.children[child]
@@ -135,6 +142,7 @@ export function useAppStore() {
     toggleCantWaitFor,
     toggleMyPacking,
     toggleFamilyPacking,
+    togglePersonPacking,
     recordQuizAnswer,
     recordMemoryBestTime,
     resetAll,
